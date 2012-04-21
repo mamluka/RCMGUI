@@ -34,10 +34,14 @@ classdef WizardUtils < handle
                 case 2
                     result = AxisType.Temperature;
                 case 3
-                    result = AxisType.PrecipitatesRadius;
+                    result = AxisType.VolumeFractionWithContantRadius;
                 case 4
-                    result = AxisType.DistributionParameter1;
+                    result = AxisType.VolumeFractionWithConstantDensity;
                 case 5
+                    result = AxisType.PrecipitatesRadius;
+                case 6
+                    result = AxisType.DistributionParameter1;
+                case 7
                     result = AxisType.DistributionParameter2;
             end
         end

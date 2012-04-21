@@ -46,6 +46,8 @@ for i=1:vector1Length
             IncimentDistributionParamter(dist,vector1(i),vector1Type);
         case ActionType.Specimen
             IncrementAxisParameter(c,vector1(i),vector1Type);
+        case ActionType.CalculatedValue
+            IncrementCalculatedAxisParameter(c,vector1(i),vector1Type);
     end
     
     for j=1:vector2Length
@@ -57,9 +59,12 @@ for i=1:vector1Length
                 IncimentDistributionParamter(dist,vector2(j),vector2Type);
             case ActionType.Specimen
                 IncrementAxisParameter(c,vector2(j),vector2Type);
+            case ActionType.CalculatedValue
+                IncrementCalculatedAxisParameter(c,vector1(i),vector1Type);
         end
+        
         if viewModel.UsePrecipitates == 1 && viewModel.ModelType == ModelType.OurModel
-            taoPFunction = dist.DistributionFunction();       
+            taoPFunction = dist.DistributionFunction();
         else
             taoPFunction=0;
         end
@@ -86,6 +91,14 @@ switch type
         c.ParticipatesRadius = value;
 end
 
+function IncrementCalculatedAxisParameter(c,value,type)
+switch type
+    case AxisType.VolumeFractionWithContantRadius
+        c.ParticipatesDensity = value/((4/3)*pi*(c.ParticipatesRadius*1E-9)^3);
+    case AxisType.VolumeFractionWithConstantDensity
+        c.ParticipatesRadius = 1E9*(value/((4/3)*pi*c.ParticipatesDensity))^(1/3);
+end
+
 function IncimentDistributionParamter(dist,value,type)
 
 if type == AxisType.DistributionParameter1
@@ -100,8 +113,14 @@ function actionType = SelectAxisAction(type)
 switch type
     case AxisType.Temperature
         actionType = ActionType.Temperature;
-    case AxisType.DistributionParameter1,AxisType.DistributionParameter2
+    case AxisType.DistributionParameter1
         actionType = ActionType.Distribution;
+    case AxisType.DistributionParameter2
+        actionType = ActionType.Distribution;
+    case AxisType.VolumeFractionWithContantRadius
+        actionType = ActionType.CalculatedValue;
+    case AxisType.VolumeFractionWithConstantDensity
+        actionType = ActionType.CalculatedValue;
     case AxisType.None
         actionType = ActionType.None;
     otherwise
@@ -110,13 +129,17 @@ end
 function returlabel = GetLabel(vectorType)
 switch vectorType
     case AxisType.Temperature
-        returlabel='Temperature';
+        returlabel='Temperature (K)';
     case AxisType.DistributionParameter1
         returlabel='Distribution Parameter #1';
     case AxisType.DistributionParameter2
         returlabel='Distribution Parameter #2';
     case AxisType.PrecipitatesRadius
-        returlabel='Precipitates Radius';
+        returlabel='Precipitates Radius (nm)';
+    case AxisType.VolumeFractionWithConstantDensity
+        returlabel='Volume fraction';
+    case AxisType.VolumeFractionWithContantRadius
+        returlabel='Volume fraction';
     otherwise
         returlabel='None';
 end

@@ -4,5 +4,6 @@ classdef ActionType
         Specimen
         Temperature
         Distribution
+        CalculatedValue
     end
 end

@@ -537,8 +537,8 @@ function btn_browse_Callback(hObject, eventdata, handles)
 % hObject    handle to btn_browse (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-file = uigetfile('*.xlsx');
-WizardUtils.SetProperty(handles,'txt_vdosfile','string',file)
+[file,path] = uigetfile('*.xlsx');
+WizardUtils.SetProperty(handles,'txt_vdosfile','string',[path,file])
 
 
 function txt_vdosfile_Callback(hObject, eventdata, handles)

@@ -66,6 +66,7 @@ classdef TaoManager < handle
             
             if (obj.useTaoP == 1) 
                 reptotalTao = reptotalTao+TaoParticipates(specimen,w);
+                TaoParticipates(specimen,w)
             end
             
             if (obj.useToaPNewWeights == 1) 
