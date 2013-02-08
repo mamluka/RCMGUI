@@ -2,7 +2,7 @@ function KappaLattice = FPLatticeHeatCond(specimen,taoManager,taoPFunction,T)
 
     v=specimen.PolarizationSoundVelocity;
     
-    Cv = UnitConverter.FromMolarHeatCondToVolumatricHeatCond(specimen.Cv,specimen.Density,specimen.MolarWeight);
+    Cv = UnitConverter.FromMolarHeatCondToVolumatricHeatCond(specimen.CvFunction(T),specimen.Density,specimen.MolarWeight);
     
     
     

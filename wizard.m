@@ -22,7 +22,7 @@ function varargout = wizard(varargin)
 
 % Edit the above text to modify the response to help wizard
 
-% Last Modified by GUIDE v2.5 28-Mar-2012 23:07:53
+% Last Modified by GUIDE v2.5 08-Feb-2013 16:10:07
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -532,9 +532,9 @@ function chk_precipitates_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of chk_precipitates
 
 
-% --- Executes on button press in btn_browse.
-function btn_browse_Callback(hObject, eventdata, handles)
-% hObject    handle to btn_browse (see GCBO)
+% --- Executes on button press in btn_browse_vdos.
+function btn_browse_vdos_Callback(hObject, eventdata, handles)
+% hObject    handle to btn_browse_vdos (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 [file,path] = uigetfile('*.xlsx');
@@ -859,6 +859,7 @@ viewModel.UseDislocation=WizardUtils.IsChecked(handles,'chk_dislocation');
 viewModel.UsePrecipitates=WizardUtils.IsChecked(handles,'chk_precipitates');
 
 viewModel.VdosFile = WizardUtils.ReadText(handles,'txt_vdosfile');
+viewModel.cvFile = WizardUtils.ReadText(handles,'txt_cvfile');
 
 c = Specimen;
 c.Gruneisen=WizardUtils.ReadNumber(handles,'txt_gruneisen'); %unitless
@@ -873,12 +874,15 @@ c.BurgersVector = WizardUtils.ReadNumber(handles,'txt_burgersvector'); % angstro
 c.PoissonRatio =WizardUtils.ReadNumber(handles,'txt_poissonratio');
 c.LongSoundSpeed = WizardUtils.ReadNumber(handles,'txt_longsoundvelocity'); %m/s
 c.TransSoundSpeed = WizardUtils.ReadNumber(handles,'txt_transsoundvelocity'); %m/s
+c.MatrixThermalExpantion = WizardUtils.ReadNumber(handles,'txt_matrixthermalexp'); %1/K
+c.ParticipatesThermalExpantion = WizardUtils.ReadNumber(handles,'txt_precipitatethermalexp'); %1/K
+c.MatrixMisfit = WizardUtils.ReadNumber(handles,'txt_misfit');
+
+
 c.ParticipatesRadius = WizardUtils.ReadNumber(handles,'txt_precipitateradii');  %nm
 c.Density = WizardUtils.ReadNumber(handles,'txt_density');% %gr/cm^3
 c.DensityDelta = abs(WizardUtils.ReadNumber(handles,'txt_density')-WizardUtils.ReadNumber(handles,'txt_precipitatedensity')); % gr/cm^3
 c.ParticipatesDensity = WizardUtils.ReadNumber(handles,'txt_precipitatedistributiondensity'); % m^-3
-
-c.Cv = WizardUtils.ReadNumber(handles,'txt_cv');
 
 viewModel.Specimen = c;
 
@@ -1048,6 +1052,124 @@ end
 % --- Executes during object creation, after setting all properties.
 function txt_gruneisen_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to txt_gruneisen (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in chk_normal.
+function chk_normal_Callback(hObject, eventdata, handles)
+% hObject    handle to chk_normal (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chk_normal
+
+
+% --- Executes on button press in chk_strain.
+function chk_strain_Callback(hObject, eventdata, handles)
+% hObject    handle to chk_strain (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chk_strain
+
+
+
+function txt_matrixthermalexp_Callback(hObject, eventdata, handles)
+% hObject    handle to txt_matrixthermalexp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txt_matrixthermalexp as text
+%        str2double(get(hObject,'String')) returns contents of txt_matrixthermalexp as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txt_matrixthermalexp_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txt_matrixthermalexp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function txt_precipitatethermalexp_Callback(hObject, eventdata, handles)
+% hObject    handle to txt_precipitatethermalexp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txt_precipitatethermalexp as text
+%        str2double(get(hObject,'String')) returns contents of txt_precipitatethermalexp as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txt_precipitatethermalexp_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txt_precipitatethermalexp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function txt_misfit_Callback(hObject, eventdata, handles)
+% hObject    handle to txt_misfit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txt_misfit as text
+%        str2double(get(hObject,'String')) returns contents of txt_misfit as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txt_misfit_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txt_misfit (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in btn_browse_cv.
+function btn_browse_cv_Callback(hObject, eventdata, handles)
+% hObject    handle to btn_browse_cv (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+[file,path] = uigetfile('*.xlsx');
+WizardUtils.SetProperty(handles,'txt_cvfile','string',[path,file])
+
+
+function txt_cvfile_Callback(hObject, eventdata, handles)
+% hObject    handle to txt_cvfile (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txt_cvfile as text
+%        str2double(get(hObject,'String')) returns contents of txt_cvfile as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txt_cvfile_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txt_cvfile (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 

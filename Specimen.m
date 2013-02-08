@@ -17,9 +17,13 @@ classdef Specimen < handle
         Density = 8.242% %gr/cm^3
         DensityDelta = 8.242-7.597 % gr/cm^3
         ParticipatesDensity = 1.3263E17 % m^-3
+        MatrixThermalExpantion = 19.8E-6 %1/K
+        ParticipatesThermalExpantion  = 8.5E-6 % 1/K
+        MatrixMisfit = 0.02 % this is strain
         
         MatrixDOS=[];
-        Cv = 49.4474;
+        CvFunction;
+        
         MolarWeight = 334 % gr/mol
     end
     
@@ -32,6 +36,13 @@ classdef Specimen < handle
             A=trapz(DOS(:,1),DOS(:,2));
             DOS(:,2) = DOS(:,2)./A;
             obj.MatrixDOS=DOS;
+        end
+        
+        function AproximateCvFunction(obj,filename)
+            cvData = importdata(filename);
+            cv=cvData.Sheet1;
+            curve = polyfit(cv(:,1),cv(:,2),10);
+            obj.CvFunction = @(T) polyval(curve,T);
         end
         % R in nm
         function DensityByRadiiAndVolumeFraction(obj,R,Vf)

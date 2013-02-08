@@ -6,6 +6,7 @@ classdef WizardViewModel < handle
       UseDislocation=0
       UsePrecipitates=0
       VdosFile=''
+      cvFile=''
       
       Specimen
       AxisData=cell(3,1)

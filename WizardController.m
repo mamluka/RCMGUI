@@ -1,6 +1,9 @@
 function WizardController(viewModel)
 c=viewModel.Specimen;
-c.LoadMatrixDOSFromFile(viewModel.VdosFile);
+if viewModel.ModelType == ModelType.OurModel
+    c.LoadMatrixDOSFromFile(viewModel.VdosFile);
+    c.AproximateCvFunction(viewModel.cvFile);
+end
 
 tm=TaoManager();
 
