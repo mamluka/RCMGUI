@@ -20,9 +20,8 @@ function reciprocalt = TaoStrain(specimen,w,T)
     %by JACS article
     sigma = specimen.ParticipatesDensity;
     r = specimen.ParticipatesRadius*1E-9;
-    epsilon = epsilon0*(alphaP - alphaM(1-epsilon0))*(T-300);
-    
-    gamma = ?
+    epsilon = epsilon0*(alphaP - alphaM(1-epsilon0))*(T-300);    
+    gamma = speciman.Gruneisen;
     
     reciprocalt=(144*sigma*gamma^2*epsilon^2*r^4/v)*w^2;
     

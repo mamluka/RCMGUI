@@ -46,9 +46,9 @@ classdef WizardUtils < handle
                 case 7
                     result = AxisType.DistributionParameter2;
                 case 8
-                   result = AxisType.PrecipitateNumberDensity;
+                   result = AxisType.DistributionParameter2;
                 case 9
-                    result = AxisType.GrainSize;
+                    result = AxisType.DistributionParameter2;
             end
         end
         function vector = ToVector(startNum,endNum,stepNum)

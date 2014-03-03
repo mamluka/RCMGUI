@@ -22,7 +22,7 @@ function varargout = wizard(varargin)
 
 % Edit the above text to modify the response to help wizard
 
-% Last Modified by GUIDE v2.5 03-Mar-2014 15:10:59
+% Last Modified by GUIDE v2.5 08-Feb-2013 16:10:07
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -573,26 +573,16 @@ function cmb_axis1_Callback(hObject, eventdata, handles)
 %        contents{get(hObject,'Value')} returns selected item from
 
 axisType = WizardUtils.ToAxisType(WizardUtils.ReadProperty(handles,'cmb_axis1','value'));
+unit = 'K'
 switch axisType
     case AxisType.Temperature
-        unit = 'K';
+        
     case AxisType.PrecipitatesRadius
-        unit = 'nm';
-    case AxisType.DistributionParameter1
-        unit = 'nm';
-    case AxisType.DistributionParameter2
-        unit = 'nm';
-    case AxisType.PrecipitateNumberDensity
-        unit = 'cm^-3';
-    case AxisType.GrainSize
-        unit='nm';
-    otherwise
-        unit = '';
+        WizardUtils.SetProperty(handles,'axis1_start_unit','String','nm');
 end
 
-WizardUtils.SetProperty(handles,'axis1_start_unit','String',unit);
-WizardUtils.SetProperty(handles,'axis1_end_unit','String',unit);
-WizardUtils.SetProperty(handles,'axis1_step_unit','String',unit);
+WizardUtils.SetProperty(handles,'axis1_start_unit','String',T);
+WizardUtils.SetProperty(handles,'axis1_start_unit','String','K');
 
 
 % --- Executes during object creation, after setting all properties.
@@ -685,27 +675,7 @@ function cmb_axis2_Callback(hObject, eventdata, handles)
 
 % Hints: contents = cellstr(get(hObject,'String')) returns cmb_axis2 contents as cell array
 %        contents{get(hObject,'Value')} returns selected item from cmb_axis2
-axisType = WizardUtils.ToAxisType(WizardUtils.ReadProperty(handles,'cmb_axis2','value'));
-switch axisType
-    case AxisType.Temperature
-        unit = 'K';
-    case AxisType.PrecipitatesRadius
-        unit = 'nm';
-    case AxisType.DistributionParameter1
-        unit = 'nm';
-    case AxisType.DistributionParameter2
-        unit = 'nm';
-    case AxisType.PrecipitateNumberDensity
-        unit = 'cm^-3';
-    case AxisType.GrainSize
-        unit='nm';
-    otherwise
-        unit = '';
-end
 
-WizardUtils.SetProperty(handles,'axis2_start_unit','String',unit);
-WizardUtils.SetProperty(handles,'axis2_end_unit','String',unit);
-WizardUtils.SetProperty(handles,'axis2_step_unit','String',unit);
 
 % --- Executes during object creation, after setting all properties.
 function cmb_axis2_CreateFcn(hObject, eventdata, handles)
@@ -890,18 +860,18 @@ function btn_run_Callback(hObject, eventdata, handles)
 viewModel = WizardViewModel;
 if (WizardUtils.ReadProperty(handles,'use_callaway','value') == 1)
     modelType=0;
-elseif (WizardUtils.ReadProperty(handles,'use_extended_model','value') == 1)
-    modelType=2;
 else
     modelType=1;
 end
 viewModel.ModelType = WizardUtils.ToModelType(modelType);
 
 viewModel.UseUmklapp=WizardUtils.IsChecked(handles,'chk_umklapp');
-viewModel.UseNormal=WizardUtils.IsChecked(handles,'chk_normal');
+viewModel.UseNormal =WizardUtils.IsChecked(handles,'chk_normal');
 viewModel.UseGB=WizardUtils.IsChecked(handles,'chk_gb');
 viewModel.UseDislocation=WizardUtils.IsChecked(handles,'chk_dislocation');
 viewModel.UsePrecipitates=WizardUtils.IsChecked(handles,'chk_precipitates');
+viewModel.UseStrain =WizardUtils.IsChecked(handles,'chk_strain');
+
 viewModel.VdosFile = WizardUtils.ReadText(handles,'txt_vdosfile');
 viewModel.cvFile = WizardUtils.ReadText(handles,'txt_cvfile');
 
@@ -953,7 +923,7 @@ dist.Parameter1 = WizardUtils.ReadNumber(handles,'txt_parameter1');
 dist.Parameter2 = WizardUtils.ReadNumber(handles,'txt_parameter2');
 
 viewModel.Distribution = dist;
-viewModel.Temperature = WizardUtils.ReadNumber(handles,'txt_exp_temp');
+viewModel.Temperature = WizardUtils.ReadNumber(handles,'txt_temp');
 
 WizardController(viewModel)
 
@@ -1214,29 +1184,6 @@ function txt_cvfile_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function txt_cvfile_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to txt_cvfile (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    empty - handles not created until after all CreateFcns called
-
-% Hint: edit controls usually have a white background on Windows.
-%       See ISPC and COMPUTER.
-if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-    set(hObject,'BackgroundColor','white');
-end
-
-
-
-function txt_exp_temp_Callback(hObject, eventdata, handles)
-% hObject    handle to txt_exp_temp (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-% Hints: get(hObject,'String') returns contents of txt_exp_temp as text
-%        str2double(get(hObject,'String')) returns contents of txt_exp_temp as a double
-
-
-% --- Executes during object creation, after setting all properties.
-function txt_exp_temp_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to txt_exp_temp (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 

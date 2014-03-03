@@ -4,9 +4,9 @@ function reciprocalt = TaoNormal(specimen,w,T)
     M=UnitConverter.FromMolecularWeightToKg(specimen.AverageAtomMass); %kg
     Vs=specimen.PolarizationSoundVelocity;
     Vat = UnitConverter.FromAngstromVolumeToMeterVolume(specimen.VolumePerAtom);
-    hbar = 6.6261e-034/(2*pi);
+    hbar = h = 6.6261e-034/(2*pi);
     
-    C = k^3*gamma^2*Vat/(M*hbar*Vs^5);
-    reciprocalt = C.*w.^2.*T.^3;
+    reciprocalt = k^3*gamma^2*Vat
+    
     
 end

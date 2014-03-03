@@ -76,15 +76,17 @@ classdef TaoManager < handle
             totaltao = reptotalTao.^-1;
         end
         
-        function taoN = GetToaNForExtendedCallway(obj,specimen,x,T)
+        function totaltao = GetToaNForExtendedCallway(obj,specimen,x,T)
             %m=Units();
             h=6.6261e-034;
             k=1.3807e-023;
             
             w=x*k*T/h;
             
-            reptotalTao = TaoNormal(specimen,w,T);
-            taoN = reptotalTao.^-1;
+            
+            reptotalTao = reptotalTao+TaoNormal(specimen,w,T);
+            
+            totaltao = reptotalTao.^-1;
         end
         
         function repTotalTao = GetTotalRepTaoForFP(obj,specimen,TaoPFunction,w,T)

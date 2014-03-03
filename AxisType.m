@@ -7,5 +7,7 @@ classdef AxisType
         VolumeFractionWithConstantDensity
         DistributionParameter1     
         DistributionParameter2
+        PrecipitateNumberDensity
+        GrainSize
     end
 end

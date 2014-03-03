@@ -23,10 +23,6 @@ if viewModel.UsePrecipitates == 1
     tm.UseTaoP(1);
 end
 
-if viewModel.UseNormal == 1
-    tm.UseTaoN(1);
-end
-
 
 vector1 = viewModel.AxisData{1}.Vector;
 vector2 = viewModel.AxisData{2}.Vector;
@@ -98,11 +94,6 @@ function IncrementAxisParameter(c,value,type)
 switch type
     case AxisType.PrecipitatesRadius
         c.ParticipatesRadius = value;
-    case AxisType.PrecipitateNumberDensity
-        c.ParticipatesDensity = value;
-    case AxisType.GrainSize
-        c.GrainSize = value;
-        
 end
 
 function IncrementCalculatedAxisParameter(c,value,type)
@@ -154,11 +145,6 @@ switch vectorType
         returlabel='Volume fraction';
     case AxisType.VolumeFractionWithContantRadius
         returlabel='Volume fraction';
-    case AxisType.PrecipitateNumberDensity
-        returlabel='cm^-3';
-    case AxisType.GrainSize
-        returlabel='nm';
-        
     otherwise
         returlabel='None';
 end
