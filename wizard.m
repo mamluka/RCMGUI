@@ -583,7 +583,7 @@ switch axisType
     case AxisType.DistributionParameter2
         unit = 'nm';
     case AxisType.PrecipitateNumberDensity
-        unit = 'cm^-3';
+        unit = 'M^-3';
     case AxisType.GrainSize
         unit='nm';
     otherwise
@@ -696,7 +696,7 @@ switch axisType
     case AxisType.DistributionParameter2
         unit = 'nm';
     case AxisType.PrecipitateNumberDensity
-        unit = 'cm^-3';
+        unit = 'M^-3';
     case AxisType.GrainSize
         unit='nm';
     otherwise
