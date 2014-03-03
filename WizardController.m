@@ -155,7 +155,7 @@ switch vectorType
     case AxisType.VolumeFractionWithContantRadius
         returlabel='Volume fraction';
     case AxisType.PrecipitateNumberDensity
-        returlabel='cm^-3';
+        returlabel='m^-3';
     case AxisType.GrainSize
         returlabel='nm';
         

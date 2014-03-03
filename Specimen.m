@@ -20,7 +20,7 @@ classdef Specimen < handle
         MatrixThermalExpantion = 19.8E-6 %1/K
         ParticipatesThermalExpantion  = 8.5E-6 % 1/K
         MatrixMisfit = 0.02 % this is strain
-        
+        TaoNBeta=2.5
         MatrixDOS=[];
         CvFunction;
         

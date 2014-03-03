@@ -22,7 +22,7 @@ function varargout = wizard(varargin)
 
 % Edit the above text to modify the response to help wizard
 
-% Last Modified by GUIDE v2.5 03-Mar-2014 15:10:59
+% Last Modified by GUIDE v2.5 03-Mar-2014 21:13:00
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -921,6 +921,7 @@ c.TransSoundSpeed = WizardUtils.ReadNumber(handles,'txt_transsoundvelocity'); %m
 c.MatrixThermalExpantion = WizardUtils.ReadNumber(handles,'txt_matrixthermalexp'); %1/K
 c.ParticipatesThermalExpantion = WizardUtils.ReadNumber(handles,'txt_precipitatethermalexp'); %1/K
 c.MatrixMisfit = WizardUtils.ReadNumber(handles,'txt_misfit');
+c.TaoNBeta= WizardUtils.ReadNumber(handles,'txt_taon_beta');
 
 
 c.ParticipatesRadius = WizardUtils.ReadNumber(handles,'txt_precipitateradii');  %nm
@@ -1237,6 +1238,29 @@ function txt_exp_temp_Callback(hObject, eventdata, handles)
 % --- Executes during object creation, after setting all properties.
 function txt_exp_temp_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to txt_exp_temp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function txt_taon_beta_Callback(hObject, eventdata, handles)
+% hObject    handle to txt_taon_beta (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of txt_taon_beta as text
+%        str2double(get(hObject,'String')) returns contents of txt_taon_beta as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function txt_taon_beta_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to txt_taon_beta (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 

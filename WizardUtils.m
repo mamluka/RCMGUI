@@ -52,7 +52,7 @@ classdef WizardUtils < handle
             end
         end
         function vector = ToVector(startNum,endNum,stepNum)
-            vector = startNum:stepNum:endNum;
+            vector = linspace(startNum,endNum,stepNum);
         end
         
     end
